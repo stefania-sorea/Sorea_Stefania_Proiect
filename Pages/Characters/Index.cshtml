@@ -1,0 +1,88 @@
+﻿@page "/{id:int?}"
+@model Sorea_Stefania_Proiect.Pages.Characters.IndexModel
+
+@{
+    ViewData["Title"] = "Characters";
+}
+
+<h1>Characters</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].Height)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].EyeColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].HairColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Character[0].Anime.AnimeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.Character[0].Roles)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CharacterD.Characters) {
+    string selectedRow = "";
+    if (item.ID == Model.CharacterID)
+    {
+        selectedRow = "table-success";
+    }
+    <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Height)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EyeColor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HairColor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anime.AnimeName)
+            </td>
+            <td>
+                @{ 
+                    foreach (var va in item.Roles) 
+                    { 
+                        @va.VoiceActor.Name @: @va.VoiceActor.Language <br/>
+                    }
+                }
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

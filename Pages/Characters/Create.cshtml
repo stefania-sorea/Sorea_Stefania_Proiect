@@ -1,0 +1,89 @@
+﻿@page
+@model Sorea_Stefania_Proiect.Pages.Characters.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Character</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Character.Name" class="control-label"></label>
+                <input asp-for="Character.Name" class="form-control" />
+                <span asp-validation-for="Character.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Character.Age" class="control-label"></label>
+                <input asp-for="Character.Age" class="form-control" />
+                <span asp-validation-for="Character.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Character.Gender" class="control-label"></label>
+                <input asp-for="Character.Gender" class="form-control" />
+                <span asp-validation-for="Character.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Character.Height" class="control-label"></label>
+                <input asp-for="Character.Height" class="form-control" />
+                <span asp-validation-for="Character.Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Character.EyeColor" class="control-label"></label>
+                <input asp-for="Character.EyeColor" class="form-control" />
+                <span asp-validation-for="Character.EyeColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Character.HairColor" class="control-label"></label>
+                <input asp-for="Character.HairColor" class="form-control" />
+                <span asp-validation-for="Character.HairColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Character.AnimeID" class="control-label">Anime</label>
+                <select asp-for="Character.AnimeID" class="form-control" asp-items="ViewBag.AnimeID"></select>
+                <span asp-validation-for="Character.AnimeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var va in Model.AssignedRoleDataList)
+                                {
+                                    if (cnt++ % 2 == 0)
+                                    {
+                                    @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedVoiceActors"
+                                               value="@va.VoiceActorID"
+                                               @(Html.Raw(va.Assigned ? "checked=\"checked\"" : "")) />
+                                        @va.VoiceActorID @: @va.Name
+                                    @:</td>
+                                }
+                            @:</tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
